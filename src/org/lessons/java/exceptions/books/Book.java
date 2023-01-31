@@ -3,28 +3,18 @@ package org.lessons.java.exceptions.books;
 public class Book {
 
 	private String titolo;
-	private int nPagine;
+	private int pagine;
 	private String autore;
 	private String editore;
 
 	// constructor
-	public Book(String titolo, int nPagine, String autore, String editore) throws Exception {
+	public Book(String titolo, int pagine, String autore, String editore) throws Exception {
 
-		if (titolo.isEmpty())
-			throw new Exception("Titolo obbligatorio!");
-		this.titolo = titolo;
+		validateTitolo(titolo);
+		validatePagine(pagine);
+		validateAutore(autore);
+		validateEditore(editore);
 
-		if (nPagine <= 0)
-			throw new Exception("Pagine deve essere maggiore di zero!");
-		this.nPagine = nPagine;
-
-		if (autore.isEmpty())
-			throw new Exception("Autore obbligatorio!");
-		this.autore = autore;
-
-		if (editore.isEmpty())
-			throw new Exception("Editore obbligatorio!");
-		this.editore = editore;
 	}
 
 	// getter and setter
@@ -33,22 +23,15 @@ public class Book {
 	}
 
 	public void setTitolo(String titolo) throws Exception {
-		if (titolo.isEmpty()) {
-			throw new Exception("Titolo obbligatorio");
-		}
-		this.titolo = titolo;
+		validateTitolo(titolo);
 	}
 
-	public int getnPagine() {
-		return nPagine;
+	public int getPagine() {
+		return pagine;
 	}
 
-	public void setnPagine(int nPagine) throws Exception {
-		if (nPagine <= 0) {
-			throw new Exception("Pagine deve essere maggiore di zero!");
-		} else {
-			this.nPagine = nPagine;
-		}
+	public void setPagine(int pagine) throws Exception {
+		validatePagine(pagine);
 	}
 
 	public String getAutore() {
@@ -56,11 +39,7 @@ public class Book {
 	}
 
 	public void setAutore(String autore) throws Exception {
-		if (autore.isEmpty()) {
-			throw new Exception("Autore obbligatorio!");
-		} else {
-			this.autore = autore;
-		}
+		validateAutore(autore);
 	}
 
 	public String getEditore() {
@@ -68,17 +47,39 @@ public class Book {
 	}
 
 	public void setEditore(String editore) throws Exception {
-		if (editore.isEmpty()) {
-			throw new Exception("Editore obbligatorio!");
-		} else {
-			this.editore = editore;
-		}
+		validateEditore(editore);
 	}
 
+	// functions to validate data
+	public void validateTitolo(String titolo) throws Exception {
+		if (titolo.isEmpty())
+			throw new Exception("Titolo obbligatorio");
+		this.titolo = titolo;
+	}
+
+	public void validatePagine(int pagine) throws Exception {
+		if (pagine <= 0)
+			throw new Exception("Pagine deve essere maggiore di zero!");
+		this.pagine = pagine;
+	}
+
+	public void validateAutore(String autore) throws Exception {
+		if (autore.isEmpty())
+			throw new Exception("Autore obbligatorio!");
+		this.autore = autore;
+	}
+
+	public void validateEditore(String editore) throws Exception {
+		if (editore.isEmpty())
+			throw new Exception("Editore obbligatorio!");
+		this.editore = editore;
+	}
+
+	// override
 	@Override
 	public String toString() {
 		return "\n" + "Titolo: " + getTitolo() + "\n" + "Autore: " + getAutore() + "\n" + "Editore: " + getEditore()
-				+ "\n" + "Pagine: " + getnPagine() + "\n" + "\n";
+				+ "\n" + "Pagine: " + getPagine() + "\n" + "\n";
 	}
 
 }
